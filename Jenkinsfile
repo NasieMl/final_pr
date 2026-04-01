@@ -1,22 +1,19 @@
 pipeline {
     agent any
-
     stages {
         stage('Terraform Init') {
             steps {
-                bat 'terraform init'
+                bat 'ssh -p 2222 anastasia@127.0.0.1 "cd ~/final_pr && terraform init"'
             }
         }
-
-        stage('Create VPC') {
+        stage('Stage 1: Create VPC') {
             steps {
-                bat 'terraform apply -target=google_compute_network.vpc_network -auto-approve'
+                bat 'ssh -p 2222 anastasia@127.0.0.1 "cd ~/final_pr && terraform apply -target=google_compute_network.vpc_network -auto-approve"'
             }
         }
-
-        stage('Create VM') {
+        stage('Stage 2: Create VM') {
             steps {
-                bat 'terraform apply -auto-approve'
+                bat 'ssh -p 2222 anastasia@127.0.0.1 "cd ~/final_pr && terraform apply -auto-approve"'
             }
         }
     }
