@@ -1,4 +1,5 @@
 provider "google" {
+  credentials = file("/var/lib/jenkins/gcp_keys/key.json")
   project = "terraform-lab5-489119"
   region  = "us-central1"
 }
